@@ -31,9 +31,7 @@ public class Rope : MonoBehaviour
         m_lineRenderer.positionCount = precision;
         waveSize = StartWaveSize;
         straightLine = false;
-
         LinePointsToFirePoint();
-
         m_lineRenderer.enabled = true;
     }
 
