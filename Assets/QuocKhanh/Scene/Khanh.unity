@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 1352822537}
   - component: {fileID: 1352822536}
   - component: {fileID: 1352822538}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -526,6 +526,10 @@ PrefabInstance:
       propertyPath: m_camera
       value: 
       objectReference: {fileID: 808744510}
+    - target: {fileID: 6692697162803795070, guid: 2b833e103d2b97c439a0b7b7e0c3f554, type: 3}
+      propertyPath: grappleToAll
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6766916181149819875, guid: 2b833e103d2b97c439a0b7b7e0c3f554, type: 3}
       propertyPath: m_Name
       value: Player
