@@ -15,6 +15,7 @@ public class PlayerShooting : MonoBehaviour
     private Rigidbody2D rb;
     private float chargeTime;
     private bool isCharging;
+    private Vector2 respawnPosition;
 
     void Start()
     {
