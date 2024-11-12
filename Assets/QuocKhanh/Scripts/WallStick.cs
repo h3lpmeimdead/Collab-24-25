@@ -12,7 +12,7 @@ public class WallStick : MonoBehaviour
 
     private bool IsWalled()
     {
-        return Physics2D.OverlapCircle(wallCheck.position, 1.2f, wallSlideLayer);
+        return Physics2D.OverlapCircle(wallCheck.position, 1.05f, wallSlideLayer);
     }
 
     private void WallSlide()
