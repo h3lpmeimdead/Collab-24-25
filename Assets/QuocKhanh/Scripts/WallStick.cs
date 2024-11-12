@@ -4,40 +4,31 @@ using UnityEngine;
 
 public class WallStick : MonoBehaviour
 {
-    public float wallCheckDistance = 0.5f;
-    public float stickForce = 5f;
-    public LayerMask wallLayer;
-    private Rigidbody2D rb;
-    public bool isSticking;
+    [SerializeField] private bool isWallSliding;
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private Transform wallCheck;
+    [SerializeField] private LayerMask wallSlideLayer;
+    [SerializeField] private float wallSlidingSpeed = 1.5f;
 
-    void Start()
+    private bool IsWalled()
     {
-        isSticking = false;
-        rb = GetComponent<Rigidbody2D>();
+        return Physics2D.OverlapCircle(wallCheck.position, 1.2f, wallSlideLayer);
     }
 
-    void Update()
+    private void WallSlide()
     {
-        WallCheck();
-    }
-
-    void WallCheck()
-    {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, wallCheckDistance, wallLayer);
-
-        if (hit.collider)
+        if(IsWalled())
         {
-            StickToWall();
+            isWallSliding = true;
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
         }
         else
         {
-            isSticking = false;
+            isWallSliding = false;
         }
     }
-
-    void StickToWall()
+    private void Update()
     {
-        isSticking = true;
-        rb.velocity = new Vector2(rb.velocity.x, stickForce);
+        WallSlide();
     }
 }
