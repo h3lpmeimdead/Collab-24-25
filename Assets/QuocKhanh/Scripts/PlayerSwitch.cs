@@ -5,15 +5,12 @@ using UnityEngine;
 public class PlayerSwitch : MonoBehaviour
 {
     public GrapplingGun player1Controller;
-
-    public GrapplingGun player2Controller;
-    public LineRenderer player2LineRenderer;
+    public PlayerShooting player2Controller;
     public bool player1Active = true;
 
     private void Start()
     {
         player2Controller.enabled = false;
-        player2LineRenderer.enabled = false;
     }
 
     private void Update()

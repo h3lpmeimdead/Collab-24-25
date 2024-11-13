@@ -11,11 +11,17 @@ public class PlayerShooting : MonoBehaviour
     public float shootingPointDistance = 1f;
     public Slider chargeBar;  
     public Vector3 barOffset = new Vector3(0, 0.5f, 0);
+    [Range(0, 60)][SerializeField] private float rotationSpeed = 4;
 
     private Rigidbody2D rb;
     private float chargeTime;
     private bool isCharging;
     private Vector2 respawnPosition;
+    public bool rotateOverTime = true;
+
+    public Transform gunHolder;
+    public Transform gunPivot;
+    public Transform firePoint;
 
     void Start()
     {
@@ -29,8 +35,8 @@ public class PlayerShooting : MonoBehaviour
     {
         
         UpdateChargeBarPosition();
-
-        RotateShootingPoint();
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        RotateGun(mousePos, true);
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -53,11 +59,19 @@ public class PlayerShooting : MonoBehaviour
         }
     }
 
-    void RotateShootingPoint()
+    void RotateGun(Vector3 lookPoint, bool allowRotationOverTime)
     {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 direction = (mousePosition - transform.position).normalized;
-        shootingPoint.position = (Vector2)transform.position + direction * shootingPointDistance;
+        Vector3 distanceVector = lookPoint - gunPivot.position;
+
+        float angle = Mathf.Atan2(distanceVector.y, distanceVector.x) * Mathf.Rad2Deg;
+        if (rotateOverTime && allowRotationOverTime)
+        {
+            gunPivot.rotation = Quaternion.Lerp(gunPivot.rotation, Quaternion.AngleAxis(angle, Vector3.forward), Time.deltaTime * rotationSpeed);
+        }
+        else
+        {
+            gunPivot.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
     }
 
     void Shoot()
