@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WallStick : MonoBehaviour
 {
-    [SerializeField] private bool isWallSliding;
+    [SerializeField] private bool isWallSliding = false;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform wallCheck;
     [SerializeField] private LayerMask wallSlideLayer;
