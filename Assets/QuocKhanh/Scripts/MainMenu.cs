@@ -25,8 +25,17 @@ public class MainMenu : MonoBehaviour
   {
         Application.Quit();  
   }
-    public void OpenCredits()
-    {
+  public void OpenCredits()
+  {
         SceneManager.LoadScene("Credits");
+  }
+  public void ToLevel1()
+    {
+        SceneManager.LoadScene("TestLevel");
     }
+    public void ToLevel2()
+    {
+        SceneManager.LoadScene("TestLevel2");
+    }
+  
 }

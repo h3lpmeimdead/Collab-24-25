@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/MainScene/MainScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/QuocKhanh/Scene/Main Menu.unity
+    guid: 53d2df6fe365d384888a20e0292efad9
+  - enabled: 1
+    path: Assets/QuocKhanh/Scene/TestLevel.unity
+    guid: 1a9509d2e6e0bc849822a1f25475f9f5
+  - enabled: 1
+    path: Assets/QuocKhanh/Scene/TestLevel2.unity
+    guid: 667f37738f55fef4b9ede67c9ddc2fc6
   m_configObjects: {}

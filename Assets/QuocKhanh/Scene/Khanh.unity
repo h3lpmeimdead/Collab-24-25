@@ -1501,7 +1501,7 @@ PrefabInstance:
       objectReference: {fileID: 808744510}
     - target: {fileID: 6692697162803795070, guid: 2b833e103d2b97c439a0b7b7e0c3f554, type: 3}
       propertyPath: grappleToAll
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6766916181149819875, guid: 2b833e103d2b97c439a0b7b7e0c3f554, type: 3}
       propertyPath: m_Name
