@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/QuocKhanh/Scene/TestLevel2.unity
     guid: 667f37738f55fef4b9ede67c9ddc2fc6
+  - enabled: 1
+    path: Assets/QuocKhanh/Scene/Credits.unity
+    guid: 337f705e4c513114aab44795b767d34e
   m_configObjects: {}
