@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class PlayerShooting : MonoBehaviour
 {
@@ -9,14 +10,19 @@ public class PlayerShooting : MonoBehaviour
     public float maxKnockbackForce = 15f;
     public float minKnockbackForce = 5f;
     public float shootingPointDistance = 1f;
-    public Slider chargeBar;  
+    public Slider chargeBar;
     public Vector3 barOffset = new Vector3(0, 0.5f, 0);
     [Range(0, 60)][SerializeField] private float rotationSpeed = 4;
+    public float shootingCooldown = 1f; 
+    public int poolSize = 10; // Number of projectiles to keep in the pool
 
     private Rigidbody2D rb;
     private float chargeTime;
     private bool isCharging;
-    private Vector2 respawnPosition;
+    private bool canShoot = true; 
+    private float cooldownTimer; 
+    private Queue<GameObject> projectilePool; // Object pool
+
     public bool rotateOverTime = true;
 
     public Transform gunHolder;
@@ -29,33 +35,43 @@ public class PlayerShooting : MonoBehaviour
         chargeBar.maxValue = maxKnockbackForce;
         chargeBar.minValue = minKnockbackForce;
         chargeBar.value = minKnockbackForce;
+
+        // Initialize object pool
+        InitializeProjectilePool();
     }
 
     void Update()
     {
-        
         UpdateChargeBarPosition();
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RotateGun(mousePos, true);
 
-        if (Input.GetMouseButtonDown(0))
+        if (canShoot)
         {
-            isCharging = true;
-            chargeTime = minKnockbackForce;
-        }
+            if (Input.GetMouseButtonDown(0))
+            {
+                isCharging = true;
+                chargeTime = minKnockbackForce;
+            }
 
-        if (Input.GetMouseButton(0) && isCharging)
-        {
-            chargeTime += Time.deltaTime * (maxKnockbackForce - minKnockbackForce);
-            chargeTime = Mathf.Clamp(chargeTime, minKnockbackForce, maxKnockbackForce);
-            chargeBar.value = chargeTime;
-        }
+            if (Input.GetMouseButton(0) && isCharging)
+            {
+                chargeTime += Time.deltaTime * (maxKnockbackForce - minKnockbackForce);
+                chargeTime = Mathf.Clamp(chargeTime, minKnockbackForce, maxKnockbackForce);
+                chargeBar.value = chargeTime;
+            }
 
-        if (Input.GetMouseButtonUp(0) && isCharging)
+            if (Input.GetMouseButtonUp(0) && isCharging)
+            {
+                Shoot();
+                isCharging = false;
+                chargeBar.value = minKnockbackForce;
+                StartCooldown(); // Start the cooldown after shooting
+            }
+        }
+        else
         {
-            Shoot();
-            isCharging = false;
-            chargeBar.value = minKnockbackForce;
+            CooldownTimer();
         }
     }
 
@@ -79,16 +95,69 @@ public class PlayerShooting : MonoBehaviour
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = (mousePosition - shootingPoint.position).normalized;
 
-        GameObject projectile = Instantiate(projectilePrefab, shootingPoint.position, Quaternion.identity);
-        Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
-        projectileRb.velocity = direction * projectileSpeed;
+        // Get the bullet from the pool
+        GameObject projectile = GetPooledProjectile();
+        if (projectile != null)
+        {
+            projectile.transform.position = shootingPoint.position;
+            projectile.transform.rotation = Quaternion.identity;
+            projectile.SetActive(true);
 
-        rb.AddForce(-direction * chargeTime, ForceMode2D.Impulse);
+            // Set projectile velocity
+            Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
+            projectileRb.velocity = direction * projectileSpeed;
+
+            // Apply knockback to the player
+            rb.AddForce(-direction * chargeTime, ForceMode2D.Impulse);
+        }
+    }
+
+    void StartCooldown()
+    {
+        canShoot = false;
+        cooldownTimer = shootingCooldown;
+    }
+
+    void CooldownTimer()
+    {
+        cooldownTimer -= Time.deltaTime;
+        if (cooldownTimer <= 0)
+        {
+            canShoot = true;
+        }
     }
 
     void UpdateChargeBarPosition()
     {
         Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position + barOffset);
         chargeBar.transform.position = screenPosition;
+    }
+
+    void InitializeProjectilePool()
+    {
+        projectilePool = new Queue<GameObject>();
+        for (int i = 0; i < poolSize; i++)
+        {
+            GameObject projectile = Instantiate(projectilePrefab);
+            projectile.SetActive(false); // Disable bullet 
+            projectilePool.Enqueue(projectile); // Add bullet to pool
+        }
+    }
+
+    GameObject GetPooledProjectile()
+    {
+        if (projectilePool.Count > 0)
+        {
+            GameObject projectile = projectilePool.Dequeue(); // Remove bullet from pool
+            return projectile; // Return inactive bullets
+        }
+
+        return null; // Pool is empty
+    }
+
+    public void ReturnProjectileToPool(GameObject projectile)
+    {
+        projectile.SetActive(false); // Disable the bullet
+        projectilePool.Enqueue(projectile); // Add back to pool
     }
 }
