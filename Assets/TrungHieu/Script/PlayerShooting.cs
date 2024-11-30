@@ -22,6 +22,8 @@ public class PlayerShooting : MonoBehaviour
     private bool canShoot = true; 
     private float cooldownTimer; 
     private Queue<GameObject> projectilePool; // Object pool
+    private bool inShootingZone = false;
+
 
     public bool rotateOverTime = true;
 
@@ -36,7 +38,7 @@ public class PlayerShooting : MonoBehaviour
         chargeBar.minValue = minKnockbackForce;
         chargeBar.value = minKnockbackForce;
 
-        // Initialize object pool
+        
         InitializeProjectilePool();
     }
 
@@ -46,7 +48,7 @@ public class PlayerShooting : MonoBehaviour
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RotateGun(mousePos, true);
 
-        if (canShoot)
+        if (canShoot && !inShootingZone)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -157,7 +159,18 @@ public class PlayerShooting : MonoBehaviour
 
     public void ReturnProjectileToPool(GameObject projectile)
     {
-        projectile.SetActive(false); // Disable the bullet
-        projectilePool.Enqueue(projectile); // Add back to pool
+        projectile.SetActive(false);
+        projectilePool.Enqueue(projectile); 
+    }
+    public void EnableShooting()
+    {
+        inShootingZone = false;
+        Debug.Log("Shooting enabled.");
+    }
+
+    public void DisableShooting()
+    {
+        inShootingZone = true;
+        Debug.Log("Shooting disabled.");
     }
 }
