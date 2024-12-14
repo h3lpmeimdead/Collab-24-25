@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1197653672781490352}
   - component: {fileID: 9057230745408725081}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Rocket Launcher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5992511100246474414}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3295363309839444892}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,7 +157,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5181223185751146500}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 2957682174608766394}
   - component: {fileID: 5316964923440322768}
   - component: {fileID: 4763484329255032668}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -363,6 +363,8 @@ MonoBehaviour:
   chargeBar: {fileID: 0}
   barOffset: {x: 0, y: 1, z: 0}
   rotationSpeed: 17.4
+  shootingCooldown: 1
+  poolSize: 10
   rotateOverTime: 1
   gunHolder: {fileID: 1584882342849769373}
   gunPivot: {fileID: 3295363309839444892}
