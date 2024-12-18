@@ -95,7 +95,7 @@ public class PlayerShooting : MonoBehaviour
     void Shoot()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 direction = (mousePosition - shootingPoint.position).normalized;
+        Vector2 direction = ((Vector2)shootingPoint.position - rb.position).normalized;
 
         // Get the bullet from the pool
         GameObject projectile = GetPooledProjectile();
@@ -108,7 +108,7 @@ public class PlayerShooting : MonoBehaviour
             // Set projectile velocity
             Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
             projectileRb.velocity = direction * projectileSpeed;
-
+             
             // Apply knockback to the player
             rb.AddForce(-direction * chargeTime, ForceMode2D.Impulse);
         }

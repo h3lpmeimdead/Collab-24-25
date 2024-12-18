@@ -29,9 +29,9 @@ public class PlayerCheckpoint : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Wall"))
-        {
-            Respawn();
-        }
+        //if (other.gameObject.CompareTag("Wall"))
+        //{
+        //    Respawn();
+        //}
     }
 }
