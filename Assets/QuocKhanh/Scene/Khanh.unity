@@ -1862,6 +1862,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6692697162803795070, guid: 2b833e103d2b97c439a0b7b7e0c3f554, type: 3}
+      propertyPath: maxDistnace
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6692697162803795070, guid: 2b833e103d2b97c439a0b7b7e0c3f554, type: 3}
       propertyPath: playerLayer
       value: 11
       objectReference: {fileID: 0}
