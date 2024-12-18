@@ -28,5 +28,4 @@ public class Door : MonoBehaviour
         transform.position = endPos;
         GetComponent<Collider2D>().enabled = false;
     }
-
 }
