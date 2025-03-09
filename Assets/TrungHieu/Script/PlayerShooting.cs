@@ -15,6 +15,7 @@ public class PlayerShooting : MonoBehaviour
     [Range(0, 60)][SerializeField] private float rotationSpeed = 4;
     public float shootingCooldown = 1f; 
     public int poolSize = 10; // Number of projectiles to keep in the pool
+    [SerializeField] private float movementSpeed = 10f;
 
     private Rigidbody2D rb;
     private float chargeTime;
@@ -44,6 +45,10 @@ public class PlayerShooting : MonoBehaviour
 
     void Update()
     {
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        Vector2 moveForce = new Vector2(horizontalInput * movementSpeed, 0f);
+        rb.AddForce(moveForce, ForceMode2D.Force);
+
         UpdateChargeBarPosition();
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RotateGun(mousePos, true);

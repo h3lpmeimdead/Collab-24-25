@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 8046328652881639367}
   - component: {fileID: 862346517588260462}
   - component: {fileID: 277275498270243755}
-  m_Layer: 11
+  m_Layer: 9
   m_Name: Rope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,7 +321,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9125732175835975940}
-  m_Layer: 11
+  m_Layer: 9
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -355,9 +355,9 @@ GameObject:
   - component: {fileID: 2765929743883832131}
   - component: {fileID: 6692697162803795070}
   - component: {fileID: 3480330131863046}
-  m_Layer: 11
+  m_Layer: 9
   m_Name: GrapplingGun
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -392,11 +392,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grappleRope: {fileID: 277275498270243755}
   grappleToAll: 0
-  grappableLayerNumber: 9
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  isPlayer: 0
+  playerLayer: 11
+  grappleableLayer: 9
+  slideLayer: 10
+  inGrapplingZone: 0
   m_camera: {fileID: 0}
   gunHolder: {fileID: 1134710192245838049}
   gunPivot: {fileID: 3604695595149028939}
@@ -479,8 +478,9 @@ GameObject:
   - component: {fileID: 8175471808252113341}
   - component: {fileID: 4556424681936384005}
   - component: {fileID: 3309351459233937927}
-  - component: {fileID: 3942373679693751026}
   - component: {fileID: 3945696880443336439}
+  - component: {fileID: 7590228243221396690}
+  - component: {fileID: 4836088609204617494}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -546,7 +546,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  m_Sprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -602,11 +602,43 @@ SpringJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
-  m_Distance: 0.005
+  m_Distance: 7.559451
   m_DampingRatio: 1
   m_Frequency: 1
---- !u!61 &3942373679693751026
-BoxCollider2D:
+--- !u!114 &3945696880443336439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6766916181149819875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dce3481dbf92bcd458da42160de64334, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isWallSliding: 0
+  rb: {fileID: 4556424681936384005}
+  wallCheck: {fileID: 3243305967809637520}
+  wallSlideLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  wallSlidingSpeed: 2
+--- !u!114 &7590228243221396690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6766916181149819875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebbf69ec680d32f418c93ac14d9ddae2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 10
+--- !u!70 &4836088609204617494
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -638,34 +670,5 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
---- !u!114 &3945696880443336439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6766916181149819875}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dce3481dbf92bcd458da42160de64334, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isWallSliding: 0
-  rb: {fileID: 4556424681936384005}
-  wallCheck: {fileID: 3243305967809637520}
-  wallSlideLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  wallSlidingSpeed: 2
+  m_Size: {x: 1, y: 2}
+  m_Direction: 0

@@ -1,16 +1,21 @@
 using UnityEngine;
+using TMPro;
+using System.Collections;
 
 public class GrapplingGun : MonoBehaviour
 {
     [Header("Scripts Ref:")]
     public Rope grappleRope;
 
+    [Header("UI Settings:")]
+    public TMP_Text outOfRangeText;
+
     [Header("Layers Settings:")]
     [SerializeField] private bool grappleToAll = false;
     [SerializeField] private int playerLayer = 11;
     [SerializeField] private int grappleableLayer = 9;
     [SerializeField] private int slideLayer = 10;
-
+    [SerializeField] private bool inGrapplingZone = false;
 
     [Header("Main Camera:")]
     public Camera m_camera;
@@ -31,6 +36,8 @@ public class GrapplingGun : MonoBehaviour
     [Header("Distance:")]
     [SerializeField] private bool hasMaxDistance = false;
     [SerializeField] private float maxDistnace = 20;
+    [SerializeField] private float movementSpeed = 5f;
+    [SerializeField] private float maxSpeed = 5f;
 
     private enum LaunchType
     {
@@ -56,11 +63,17 @@ public class GrapplingGun : MonoBehaviour
         grappleRope.enabled = false;
         m_springJoint2D.enabled = false;
 
+        if (outOfRangeText != null)
+            outOfRangeText.gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        Vector2 moveForce = new Vector2(horizontalInput * movementSpeed, 0f);
+        m_rigidbody.AddForce(moveForce, ForceMode2D.Force);
+
+        if (Input.GetKeyDown(KeyCode.Mouse0) && inGrapplingZone == false)
         {
             SetGrapplePoint();
         }
@@ -99,6 +112,13 @@ public class GrapplingGun : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        Vector2 currentVelocity = m_rigidbody.velocity;
+        currentVelocity.x = Mathf.Clamp(currentVelocity.x, -maxSpeed, maxSpeed);
+        m_rigidbody.velocity = currentVelocity;
+    }
+
     void RotateGun(Vector3 lookPoint, bool allowRotationOverTime)
     {
         Vector3 distanceVector = lookPoint - gunPivot.position;
@@ -118,20 +138,41 @@ public class GrapplingGun : MonoBehaviour
     {
         Vector2 distanceVector = m_camera.ScreenToWorldPoint(Input.mousePosition) - firePoint.position;
         RaycastHit2D[] hits = Physics2D.RaycastAll(firePoint.position, distanceVector.normalized, hasMaxDistance ? maxDistnace : Mathf.Infinity);
+
         foreach (RaycastHit2D hit in hits)
         {
-            if (grappleToAll ||
-                (1 << hit.collider.gameObject.layer & (1 << playerLayer | 1 << grappleableLayer | 1 << slideLayer)) != 0)
+            if (grappleToAll || (1 << hit.collider.gameObject.layer & (1 << playerLayer | 1 << grappleableLayer | 1 << slideLayer)) != 0)
             {
                 grapplePoint = hit.point;
                 grappleDistanceVector = grapplePoint - (Vector2)gunPivot.position;
                 grappleRope.enabled = true;
-                return; 
+                return;
             }
         }
         grappleRope.enabled = false;
+
+        if (hasMaxDistance)
+        {
+            Vector2 mousePos = m_camera.ScreenToWorldPoint(Input.mousePosition);
+            float distanceToMouse = Vector2.Distance(firePoint.position, mousePos);
+
+            if (distanceToMouse > maxDistnace || hits == null)
+            {
+                if (outOfRangeText != null)
+                {
+                    StopAllCoroutines();
+                    StartCoroutine(ShowOutOfRangeMessage());
+                }
+            }
+        }
     }
 
+    private IEnumerator ShowOutOfRangeMessage()
+    {
+        outOfRangeText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        outOfRangeText.gameObject.SetActive(false);
+    }
 
     public void Grapple()
     {
@@ -181,4 +222,13 @@ public class GrapplingGun : MonoBehaviour
         }
     }
 
+    public void EnableGrappling()
+    {
+        inGrapplingZone = false;
+    }
+
+    public void DisableGrappling()
+    {
+        inGrapplingZone = true;
+    }
 }

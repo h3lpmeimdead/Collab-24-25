@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    [SerializeField] private float playerSpeed;
-    [SerializeField] private Rigidbody2D rb;
 
-    private void FixedUpdate()
+    public float moveSpeed = 5f;
+    private Rigidbody2D rb;
+
+    void Start()
     {
-        float Horizontal = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(Horizontal * playerSpeed, rb.velocity.y);
+        rb = GetComponent<Rigidbody2D>();
     }
+
+    void FixedUpdate()
+    {
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        Vector2 moveForce = new Vector2(horizontalInput * moveSpeed, 0f);
+        rb.AddForce(moveForce, ForceMode2D.Force);
+    }
+
 }

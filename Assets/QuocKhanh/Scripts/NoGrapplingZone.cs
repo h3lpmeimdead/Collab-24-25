@@ -1,37 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class NoGrapplingZone : MonoBehaviour
 {
-    [SerializeField] GrapplingGun grapplingGun;
-    [SerializeField] Rope rope;
-    private void OnTriggerStay2D (Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            grapplingGun.enabled = false;
-            rope.enabled = false;
-            grapplingGun.m_springJoint2D.enabled = false;
-        }
-        else
-        {
-            return;
+            GrapplingGun grapple = other.gameObject.GetComponentInChildren<GrapplingGun>();
+            if (grapple != null)
+            {
+                grapple.DisableGrappling();
+            }
+            else 
+            {
+                Debug.Log("not found");
+            }
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collider)
+    private void OnTriggerExit2D(Collider2D other)
     {
-        if(collider.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            grapplingGun.enabled = true;
-            rope.enabled = true;
-            grapplingGun.m_springJoint2D.enabled = true;
-        }
-        else
-        {
-            return;
+             GrapplingGun grapple = other.gameObject.GetComponentInChildren<GrapplingGun>();
+             if (grapple != null)
+             {
+                 grapple.EnableGrappling();
+             }
+            else
+            {
+                Debug.Log("not found");
+            }
         }
     }
-
 }
