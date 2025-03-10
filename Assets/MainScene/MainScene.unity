@@ -997,21 +997,57 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2288339209643676804, guid: 24485b0e426c6f14b8299189a944a77b, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 2957682174608766394, guid: 24485b0e426c6f14b8299189a944a77b, type: 3}
       propertyPath: chargeBar
       value: 
       objectReference: {fileID: 1553882934}
     - target: {fileID: 2957682174608766394, guid: 24485b0e426c6f14b8299189a944a77b, type: 3}
+      propertyPath: isShooting
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2957682174608766394, guid: 24485b0e426c6f14b8299189a944a77b, type: 3}
       propertyPath: movementSpeed
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2957682174608766394, guid: 24485b0e426c6f14b8299189a944a77b, type: 3}
+      propertyPath: maxKnockbackForce
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2957682174608766394, guid: 24485b0e426c6f14b8299189a944a77b, type: 3}
+      propertyPath: minKnockbackForce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2957682174608766394, guid: 24485b0e426c6f14b8299189a944a77b, type: 3}
       propertyPath: groundLayer.m_Bits
-      value: 512
+      value: 2560
+      objectReference: {fileID: 0}
+    - target: {fileID: 3981074097356776530, guid: 24485b0e426c6f14b8299189a944a77b, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4763484329255032668, guid: 24485b0e426c6f14b8299189a944a77b, type: 3}
+      propertyPath: wallSlideLayer.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 6383364606880031061, guid: 24485b0e426c6f14b8299189a944a77b, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6603325153384170541, guid: 24485b0e426c6f14b8299189a944a77b, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8861343931551173860, guid: 24485b0e426c6f14b8299189a944a77b, type: 3}
       propertyPath: m_Name
       value: Player (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8861343931551173860, guid: 24485b0e426c6f14b8299189a944a77b, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1829,6 +1865,10 @@ PrefabInstance:
       propertyPath: m_camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 2573794512271776136, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 4608
+      objectReference: {fileID: 0}
     - target: {fileID: 4372212443402711255, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1872,6 +1912,10 @@ PrefabInstance:
     - target: {fileID: 6022767834733842831, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8241703342241742330, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
+      propertyPath: wallSlideLayer.m_Bits
+      value: 1024
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

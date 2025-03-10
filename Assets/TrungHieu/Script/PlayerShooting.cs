@@ -15,7 +15,7 @@ public class PlayerShooting : MonoBehaviour
     [Range(0, 60)][SerializeField] private float rotationSpeed = 4;
     public float shootingCooldown = 1f; 
     public int poolSize = 10; // Number of projectiles to keep in the pool
-    [SerializeField] private float movementSpeed = 10f;
+
 
     private Rigidbody2D rb;
     private float chargeTime;
@@ -32,6 +32,12 @@ public class PlayerShooting : MonoBehaviour
     public Transform gunPivot;
     public Transform firePoint;
 
+    [Header("Movement Related")]
+    [SerializeField] private bool isShooting;
+    [SerializeField] private bool isGrounded;
+    [SerializeField] private float movementSpeed = 5f;
+    public LayerMask groundLayer;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -43,18 +49,24 @@ public class PlayerShooting : MonoBehaviour
         InitializeProjectilePool();
     }
 
+    private void FixedUpdate()
+    {
+        if (isGrounded && !isShooting) 
+        {
+            Movement();
+        }
+    }
+
     void Update()
     {
-        float moveInput = Input.GetAxis("Horizontal");
-        Vector2 movement = new Vector2(moveInput * movementSpeed, rb.velocity.y);
-        rb.velocity = movement;
-
+        CheckGrounded();
         UpdateChargeBarPosition();
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RotateGun(mousePos, true);
 
         if (canShoot && !inShootingZone)
         {
+            isShooting = false;
             if (Input.GetMouseButtonDown(0))
             {
                 isCharging = true;
@@ -70,10 +82,11 @@ public class PlayerShooting : MonoBehaviour
 
             if (Input.GetMouseButtonUp(0) && isCharging)
             {
+                isShooting = true;
                 Shoot();
                 isCharging = false;
                 chargeBar.value = minKnockbackForce;
-                StartCooldown(); // Start the cooldown after shooting
+                StartCooldown();
             }
         }
         else
@@ -96,6 +109,29 @@ public class PlayerShooting : MonoBehaviour
             gunPivot.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
     }
+
+    void CheckGrounded()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(rb.transform.position, Vector2.down, 1.2f, groundLayer);
+
+        if (hit.collider != null)
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
+        }
+        Debug.DrawRay(rb.transform.position, Vector2.down * 1.2f, Color.red);
+    }
+
+    private void Movement()
+    {
+        float moveInput = Input.GetAxis("Horizontal");
+        Vector2 movement = new Vector2(moveInput * movementSpeed, rb.velocity.y);
+        rb.velocity = movement;
+    }
+
 
     void Shoot()
     {
