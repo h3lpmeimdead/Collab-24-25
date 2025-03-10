@@ -25,6 +25,7 @@ public class PlayerSwitch : MonoBehaviour
     {
         if (player1Active) 
         {
+
             player1Controller.enabled = false;
 
             player2Controller.enabled = true;
@@ -33,6 +34,7 @@ public class PlayerSwitch : MonoBehaviour
         }
         else
         {
+
             player1Controller.enabled = true;
 
             player2Controller.enabled = false;

@@ -45,9 +45,9 @@ public class PlayerShooting : MonoBehaviour
 
     void Update()
     {
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
-        Vector2 moveForce = new Vector2(horizontalInput * movementSpeed, 0f);
-        rb.AddForce(moveForce, ForceMode2D.Force);
+        float moveInput = Input.GetAxis("Horizontal");
+        Vector2 movement = new Vector2(moveInput * movementSpeed, rb.velocity.y);
+        rb.velocity = movement;
 
         UpdateChargeBarPosition();
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

@@ -36,8 +36,12 @@ public class GrapplingGun : MonoBehaviour
     [Header("Distance:")]
     [SerializeField] private bool hasMaxDistance = false;
     [SerializeField] private float maxDistnace = 20;
+
+    [Header("Movement")]
     [SerializeField] private float movementSpeed = 5f;
-    [SerializeField] private float maxSpeed = 5f;
+    [SerializeField] public bool isGrappling;
+    [SerializeField] public bool isGrounded;
+    public LayerMask groundLayer;
 
     private enum LaunchType
     {
@@ -62,23 +66,30 @@ public class GrapplingGun : MonoBehaviour
     {
         grappleRope.enabled = false;
         m_springJoint2D.enabled = false;
-
+        isGrappling = false;
         if (outOfRangeText != null)
             outOfRangeText.gameObject.SetActive(false);
     }
 
+    private void FixedUpdate()
+    {
+        if (!isGrappling && isGrounded)
+        {
+            Movement();
+        }
+    }
+
     private void Update()
     {
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
-        Vector2 moveForce = new Vector2(horizontalInput * movementSpeed, 0f);
-        m_rigidbody.AddForce(moveForce, ForceMode2D.Force);
 
+        CheckGrounded();
         if (Input.GetKeyDown(KeyCode.Mouse0) && inGrapplingZone == false)
         {
             SetGrapplePoint();
         }
         else if (Input.GetKey(KeyCode.Mouse0))
         {
+            isGrappling = true;
             if (grappleRope.enabled)
             {
                 RotateGun(grapplePoint, false);
@@ -104,6 +115,7 @@ public class GrapplingGun : MonoBehaviour
             grappleRope.enabled = false;
             m_springJoint2D.enabled = false;
             m_rigidbody.gravityScale = 1;
+            isGrappling = false;
         }
         else
         {
@@ -112,12 +124,28 @@ public class GrapplingGun : MonoBehaviour
         }
     }
 
-    private void LateUpdate()
+    void CheckGrounded()
     {
-        Vector2 currentVelocity = m_rigidbody.velocity;
-        currentVelocity.x = Mathf.Clamp(currentVelocity.x, -maxSpeed, maxSpeed);
-        m_rigidbody.velocity = currentVelocity;
+        RaycastHit2D hit = Physics2D.Raycast(m_rigidbody.transform.position, Vector2.down, 1.2f, groundLayer);
+
+        if (hit.collider != null)
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
+        }
+         Debug.DrawRay(m_rigidbody.transform.position, Vector2.down * 1.2f, Color.red);
     }
+
+    private void Movement()
+    {
+        float moveInput = Input.GetAxis("Horizontal");
+        Vector2 movement = new Vector2(moveInput * movementSpeed, m_rigidbody.velocity.y);
+        m_rigidbody.velocity = movement;
+    }
+
 
     void RotateGun(Vector3 lookPoint, bool allowRotationOverTime)
     {
