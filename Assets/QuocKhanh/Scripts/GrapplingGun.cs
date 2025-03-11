@@ -126,7 +126,7 @@ public class GrapplingGun : MonoBehaviour
 
     void CheckGrounded()
     {
-        RaycastHit2D hit = Physics2D.Raycast(m_rigidbody.transform.position, Vector2.down, 1.2f, groundLayer);
+        RaycastHit2D hit = Physics2D.Raycast(m_rigidbody.transform.position, Vector2.down, 1.5f, groundLayer);
 
         if (hit.collider != null)
         {
@@ -136,7 +136,7 @@ public class GrapplingGun : MonoBehaviour
         {
             isGrounded = false;
         }
-         Debug.DrawRay(m_rigidbody.transform.position, Vector2.down * 1.2f, Color.red);
+         Debug.DrawRay(m_rigidbody.transform.position, Vector2.down * 1.5f, Color.red);
     }
 
     private void Movement()
