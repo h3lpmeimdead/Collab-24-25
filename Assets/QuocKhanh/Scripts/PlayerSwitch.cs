@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerSwitch : MonoBehaviour
 {
-    public GrapplingGun player1Controller;
-    public PlayerShooting player2Controller;
+    public GrapplingGun player2Controller;
+    public PlayerShooting player1Controller;
     public bool player1Active = true;
 
     private void Start()
