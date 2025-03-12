@@ -2003,6 +2003,18 @@ PrefabInstance:
       propertyPath: chargeBar
       value: 
       objectReference: {fileID: 341039186}
+    - target: {fileID: 2957682174608766394, guid: 24485b0e426c6f14b8299189a944a77b, type: 3}
+      propertyPath: projectileSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2957682174608766394, guid: 24485b0e426c6f14b8299189a944a77b, type: 3}
+      propertyPath: maxKnockbackForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2957682174608766394, guid: 24485b0e426c6f14b8299189a944a77b, type: 3}
+      propertyPath: minKnockbackForce
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8861343931551173860, guid: 24485b0e426c6f14b8299189a944a77b, type: 3}
       propertyPath: m_Name
       value: Player

@@ -13,14 +13,14 @@ public class PlayerShooting : MonoBehaviour
     public Slider chargeBar;
     public Vector3 barOffset = new Vector3(0, 0.5f, 0);
     [Range(0, 60)][SerializeField] private float rotationSpeed = 4;
-    public float shootingCooldown = 1f; 
+    public float shootingCooldown = 1f;
     public int poolSize = 10; // Number of projectiles to keep in the pool
 
     private Rigidbody2D rb;
     private float chargeTime;
     private bool isCharging;
-    private bool canShoot = true; 
-    private float cooldownTimer; 
+    private bool canShoot = true;
+    private float cooldownTimer;
     private Queue<GameObject> projectilePool; // Object pool
     private bool inShootingZone = false;
 
@@ -38,7 +38,7 @@ public class PlayerShooting : MonoBehaviour
         chargeBar.minValue = minKnockbackForce;
         chargeBar.value = minKnockbackForce;
 
-        
+
         InitializeProjectilePool();
     }
 
@@ -97,7 +97,7 @@ public class PlayerShooting : MonoBehaviour
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = ((Vector2)shootingPoint.position - rb.position).normalized;
 
-        // Get the bullet from the pool
+        //Get the bullet from the pool
         GameObject projectile = GetPooledProjectile();
         if (projectile != null)
         {
@@ -105,10 +105,11 @@ public class PlayerShooting : MonoBehaviour
             projectile.transform.rotation = Quaternion.identity;
             projectile.SetActive(true);
 
-            // Set projectile velocity
+            //Set projectile velocity based on charge time
             Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
-            projectileRb.velocity = direction * projectileSpeed;
-             
+            float adjustedSpeed = Mathf.Lerp(projectileSpeed, projectileSpeed * 2, (chargeTime - minKnockbackForce) / (maxKnockbackForce - minKnockbackForce));
+            projectileRb.velocity = direction * adjustedSpeed;
+
             // Apply knockback to the player
             rb.AddForce(-direction * chargeTime, ForceMode2D.Impulse);
         }
@@ -160,7 +161,7 @@ public class PlayerShooting : MonoBehaviour
     public void ReturnProjectileToPool(GameObject projectile)
     {
         projectile.SetActive(false);
-        projectilePool.Enqueue(projectile); 
+        projectilePool.Enqueue(projectile);
     }
     public void EnableShooting()
     {
