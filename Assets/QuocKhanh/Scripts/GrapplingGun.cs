@@ -12,9 +12,8 @@ public class GrapplingGun : MonoBehaviour
 
     [Header("Layers Settings:")]
     [SerializeField] private bool grappleToAll = false;
-    [SerializeField] private int playerLayer = 11;
-    [SerializeField] private int grappleableLayer = 9;
-    [SerializeField] private int slideLayer = 10;
+    [SerializeField] private LayerMask grappleableLayers;
+    [SerializeField] private LayerMask pullableLayers;
     [SerializeField] private bool inGrapplingZone = false;
 
     [Header("Main Camera:")]
@@ -64,6 +63,8 @@ public class GrapplingGun : MonoBehaviour
 
     private void Start()
     {
+
+
         grappleRope.enabled = false;
         m_springJoint2D.enabled = false;
         isGrappling = false;
@@ -169,15 +170,28 @@ public class GrapplingGun : MonoBehaviour
 
         foreach (RaycastHit2D hit in hits)
         {
-            if (grappleToAll || (1 << hit.collider.gameObject.layer & (1 << playerLayer | 1 << grappleableLayer | 1 << slideLayer)) != 0)
+            if (grappleToAll || (grappleableLayers & (1 << hit.transform.gameObject.layer)) != 0 )
             {
+
+
                 grapplePoint = hit.point;
                 grappleDistanceVector = grapplePoint - (Vector2)gunPivot.position;
                 grappleRope.enabled = true;
                 return;
             }
+
+            if ((pullableLayers & (1 << hit.transform.gameObject.layer)) != 0)
+            {
+
+
+                grapplePoint = hit.point;
+                grappleDistanceVector = grapplePoint - (Vector2)gunPivot.position;
+                grappleRope.enabled = true;
+
+                return;
+            }
         }
-        grappleRope.enabled = false;
+        //grappleRope.enabled = false;
 
         if (hasMaxDistance)
         {
@@ -194,6 +208,7 @@ public class GrapplingGun : MonoBehaviour
             }
         }
     }
+
 
     private IEnumerator ShowOutOfRangeMessage()
     {
