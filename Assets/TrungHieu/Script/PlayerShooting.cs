@@ -171,7 +171,7 @@ public class PlayerShooting : MonoBehaviour
         }
     }
 
-    void UpdateChargeBarPosition()
+    public void UpdateChargeBarPosition()
     {
         Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position + barOffset);
         chargeBar.transform.position = screenPosition;
