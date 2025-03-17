@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Rope : MonoBehaviour
 {
-    [Header("General Refernces:")]
+    [Header("General References:")]
     public GrapplingGun grapplingGun;
     public LineRenderer m_lineRenderer;
 
@@ -20,9 +20,7 @@ public class Rope : MonoBehaviour
     [SerializeField][Range(1, 50)] private float ropeProgressionSpeed = 1;
 
     float moveTime = 0;
-
     [HideInInspector] public bool isGrappling = true;
-
     bool straightLine = true;
 
     private void OnEnable()
@@ -84,8 +82,8 @@ public class Rope : MonoBehaviour
             else
             {
                 waveSize = 0;
-
-                if (m_lineRenderer.positionCount != 2) { m_lineRenderer.positionCount = 2; }
+                if (m_lineRenderer.positionCount != 2)
+                    m_lineRenderer.positionCount = 2;
 
                 DrawRopeNoWaves();
             }
@@ -97,9 +95,15 @@ public class Rope : MonoBehaviour
         for (int i = 0; i < precision; i++)
         {
             float delta = (float)i / ((float)precision - 1f);
-            Vector2 offset = Vector2.Perpendicular(grapplingGun.grappleDistanceVector).normalized * ropeAnimationCurve.Evaluate(delta) * waveSize;
-            Vector2 targetPosition = Vector2.Lerp(grapplingGun.firePoint.position, grapplingGun.grapplePoint, delta) + offset;
-            Vector2 currentPosition = Vector2.Lerp(grapplingGun.firePoint.position, targetPosition, ropeProgressionCurve.Evaluate(moveTime) * ropeProgressionSpeed);
+            Vector2 offset = Vector2.Perpendicular(grapplingGun.grappleDistanceVector).normalized
+                * ropeAnimationCurve.Evaluate(delta)
+                * waveSize;
+            Vector2 targetPosition = Vector2.Lerp(grapplingGun.firePoint.position,
+                grapplingGun.grapplePoint, delta)
+                + offset;
+            Vector2 currentPosition = Vector2.Lerp(grapplingGun.firePoint.position,
+                targetPosition,
+                ropeProgressionCurve.Evaluate(moveTime) * ropeProgressionSpeed);
 
             m_lineRenderer.SetPosition(i, currentPosition);
         }
