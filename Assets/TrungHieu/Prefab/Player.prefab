@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1197653672781490352}
   - component: {fileID: 9057230745408725081}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Rocket Launcher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 2288339209643676804}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.2588191, w: 0.9659258}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 1.3, y: 0, z: 0}
   m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -94,7 +94,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5992511100246474414}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3295363309839444892}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,7 +157,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5181223185751146500}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 4763484329255032668}
   - component: {fileID: 8984701905457889171}
   - component: {fileID: 1399140988074539799}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -260,19 +260,24 @@ MonoBehaviour:
   projectilePrefab: {fileID: 17510502432746130, guid: 05b44573df69ad544a65d3a26940edf9, type: 3}
   shootingPoint: {fileID: 1197653672781490352}
   projectileSpeed: 100
-  maxKnockbackForce: 100
-  minKnockbackForce: 10
+  maxKnockbackForce: 20
+  minKnockbackForce: 1
   shootingPointDistance: 4
   chargeBar: {fileID: 0}
   barOffset: {x: 0, y: 1, z: 0}
   rotationSpeed: 17.4
   shootingCooldown: 1
   poolSize: 10
-  movementSpeed: 10
   rotateOverTime: 1
   gunHolder: {fileID: 1584882342849769373}
   gunPivot: {fileID: 3295363309839444892}
   firePoint: {fileID: 5181223185751146500}
+  isShooting: 0
+  isGrounded: 0
+  movementSpeed: 5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 2560
 --- !u!114 &5316964923440322768
 MonoBehaviour:
   m_ObjectHideFlags: 0
