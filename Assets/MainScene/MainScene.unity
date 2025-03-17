@@ -1570,6 +1570,14 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 5939881435960549592, guid: 3633b7e6b7270ca4c9de0a9ce3cb4cdb, type: 3}
+      propertyPath: shootingPlayer
+      value: 
+      objectReference: {fileID: 1163693765}
+    - target: {fileID: 5939881435960549592, guid: 3633b7e6b7270ca4c9de0a9ce3cb4cdb, type: 3}
+      propertyPath: grapplingPlayer
+      value: 
+      objectReference: {fileID: 209563291}
+    - target: {fileID: 5939881435960549592, guid: 3633b7e6b7270ca4c9de0a9ce3cb4cdb, type: 3}
       propertyPath: player1Controller
       value: 
       objectReference: {fileID: 1163693765}

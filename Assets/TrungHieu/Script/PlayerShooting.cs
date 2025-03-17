@@ -4,6 +4,22 @@ using System.Collections.Generic;
 
 public class PlayerShooting : MonoBehaviour
 {
+    [Header("Player Control")]
+    [SerializeField] private bool isActive = false;
+
+    public bool IsActive
+    {
+        get => isActive;
+        set
+        {
+            if (isActive == value) return;
+            isActive = value;
+
+            if (!isActive) ResetCharge();
+        }
+    }
+
+
     public GameObject projectilePrefab;
     public Transform shootingPoint;
     public float projectileSpeed = 10f;
@@ -51,7 +67,7 @@ public class PlayerShooting : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isGrounded && !isShooting) 
+        if (IsActive && isGrounded && !isShooting) 
         {
             Movement();
         }
@@ -59,6 +75,7 @@ public class PlayerShooting : MonoBehaviour
 
     void Update()
     {
+        if (!IsActive) return;
         CheckGrounded();
         UpdateChargeBarPosition();
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -169,6 +186,12 @@ public class PlayerShooting : MonoBehaviour
         {
             canShoot = true;
         }
+    }
+
+    void ResetCharge()
+    {
+        isCharging = false;
+        chargeBar.value = minKnockbackForce;
     }
 
     public void UpdateChargeBarPosition()
