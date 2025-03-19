@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Collections;
 
 public class PlayerShooting : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class PlayerShooting : MonoBehaviour
     public Slider chargeBar;
     public Vector3 barOffset = new Vector3(0, 0.5f, 0);
     [Range(0, 60)][SerializeField] private float rotationSpeed = 4;
-    public float shootingCooldown = 1f;
+    public float shootingCooldown = 2f;
     public int poolSize = 10; // Number of projectiles to keep in the pool
 
 
@@ -24,7 +25,9 @@ public class PlayerShooting : MonoBehaviour
     private float cooldownTimer;
     private Queue<GameObject> projectilePool; // Object pool
     private bool inShootingZone = false;
-
+    private Animator animator;
+    private SpriteRenderer spriteRenderer; 
+    private bool facingRight = true; 
 
     public bool rotateOverTime = true;
 
@@ -40,22 +43,25 @@ public class PlayerShooting : MonoBehaviour
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         chargeBar.maxValue = maxKnockbackForce;
         chargeBar.minValue = minKnockbackForce;
         chargeBar.value = minKnockbackForce;
-
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
         InitializeProjectilePool();
     }
 
     private void FixedUpdate()
     {
-        if (isGrounded && !isShooting) 
+        
+        if (isGrounded || inShootingZone)
         {
             Movement();
         }
     }
+
 
     void Update()
     {
@@ -129,8 +135,44 @@ public class PlayerShooting : MonoBehaviour
     {
         float moveInput = Input.GetAxis("Horizontal");
         Vector2 movement = new Vector2(moveInput * movementSpeed, rb.velocity.y);
-        rb.velocity = movement;
+
+        if (!isShooting)
+        {
+            rb.velocity = movement;
+        }
+
+        
+        if (moveInput > 0 && !facingRight)
+        {
+            Flip();
+        }
+        else if (moveInput < 0 && facingRight)
+        {
+            Flip();
+        }
+
+     
+        if (animator != null)
+        {
+            if (Mathf.Abs(moveInput) > 0.1f)
+            {
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Cannon Run"))
+                {
+                    animator.Play("Cannon Run");
+                }
+            }
+            else
+            {
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Cannon Idle"))
+                {
+                    animator.Play("Cannon Idle");
+                }
+            }
+        }
     }
+
+
+
 
 
     void Shoot()
@@ -204,6 +246,7 @@ public class PlayerShooting : MonoBehaviour
         projectile.SetActive(false);
         projectilePool.Enqueue(projectile);
     }
+
     public void EnableShooting()
     {
         inShootingZone = false;
@@ -214,5 +257,21 @@ public class PlayerShooting : MonoBehaviour
     {
         inShootingZone = true;
         Debug.Log("Shooting disabled.");
+        StartCoroutine(EnableMovement());
     }
+    private IEnumerator EnableMovement()
+    {
+       yield return new WaitForSeconds(1f);
+       isShooting = false;
+    }
+    void Flip()
+    {
+        facingRight = !facingRight; 
+        spriteRenderer.flipX = !facingRight;
+
+        // Flip gunPivot and firePoint positions
+        gunPivot.localPosition = new Vector3(-gunPivot.localPosition.x, gunPivot.localPosition.y, gunPivot.localPosition.z);
+        firePoint.localPosition = new Vector3(-firePoint.localPosition.x, firePoint.localPosition.y, firePoint.localPosition.z);
+    }
+
 }
