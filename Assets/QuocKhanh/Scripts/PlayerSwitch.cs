@@ -4,42 +4,26 @@ using UnityEngine;
 
 public class PlayerSwitch : MonoBehaviour
 {
-    public GrapplingGun player2Controller;
-    public PlayerShooting player1Controller;
-    public bool player1Active = true;
+    public GrapplingGun grapplingPlayer;
+    public PlayerShooting shootingPlayer;
 
-    private void Start()
+    void Start()
     {
-        player2Controller.enabled = false;
+        shootingPlayer.IsActive = true;
+        grapplingPlayer.IsActive = false;
     }
 
-    private void Update()
+    void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Tab)) 
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
-            Switch();
+            SwitchPlayers();
         }
     }
 
-    public void Switch()
+    void SwitchPlayers()
     {
-        if (player1Active) 
-        {
-
-            player1Controller.enabled = false;
-
-            player2Controller.enabled = true;
-
-            player1Active = false;
-        }
-        else
-        {
-
-            player1Controller.enabled = true;
-
-            player2Controller.enabled = false;
-
-            player1Active = true;
-        }
+        shootingPlayer.IsActive = !shootingPlayer.IsActive;
+        grapplingPlayer.IsActive = !grapplingPlayer.IsActive;
     }
 }

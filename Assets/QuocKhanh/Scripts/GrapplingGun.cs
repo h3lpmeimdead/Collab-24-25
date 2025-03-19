@@ -4,6 +4,9 @@ using System.Collections;
 
 public class GrapplingGun : MonoBehaviour
 {
+    [Header("Player Control")]
+    [SerializeField] private bool isActive = false;
+
     [Header("Scripts Ref:")]
     public Rope grappleRope;
 
@@ -77,7 +80,7 @@ public class GrapplingGun : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isGrappling && isGrounded)
+        if (IsActive && !isGrappling && isGrounded)
         {
             Movement();
         }
@@ -91,6 +94,7 @@ public class GrapplingGun : MonoBehaviour
 
     private void Update()
     {
+        if (!IsActive) return;
         CheckGrounded();
         if (isPulling && pulledObject == null)
         {
@@ -143,6 +147,18 @@ public class GrapplingGun : MonoBehaviour
         {
             Vector2 mousePos = m_camera.ScreenToWorldPoint(Input.mousePosition);
             RotateGun(mousePos, true);
+        }
+    }
+
+    public bool IsActive
+    {
+        get => isActive;
+        set
+        {
+            if (isActive == value) return;
+            isActive = value;
+
+            if (!isActive) ResetGrapple();
         }
     }
 
@@ -259,6 +275,16 @@ public class GrapplingGun : MonoBehaviour
                     break;
             }
         }
+    }
+
+    void ResetGrapple()
+    {
+        grappleRope.enabled = false;
+        m_springJoint2D.enabled = false;
+        m_rigidbody.gravityScale = 1;
+        isGrappling = false;
+        isPulling = false;
+        pulledObject = null;
     }
 
     private IEnumerator ShowOutOfRangeMessage()
