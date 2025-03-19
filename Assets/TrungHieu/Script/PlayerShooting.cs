@@ -16,8 +16,8 @@ public class PlayerShooting : MonoBehaviour
     [Range(0, 60)][SerializeField] private float rotationSpeed = 4;
     public float shootingCooldown = 2f;
     public int poolSize = 10; // Number of projectiles to keep in the pool
-
-
+    [SerializeField] private bool isActive = false;
+   
     private Rigidbody2D rb;
     private float chargeTime;
     private bool isCharging;
@@ -56,7 +56,7 @@ public class PlayerShooting : MonoBehaviour
     private void FixedUpdate()
     {
         
-        if (isGrounded || inShootingZone)
+        if (IsActive && isGrounded || inShootingZone)
         {
             Movement();
         }
@@ -65,6 +65,7 @@ public class PlayerShooting : MonoBehaviour
 
     void Update()
     {
+        if (!IsActive) return;
         CheckGrounded();
         UpdateChargeBarPosition();
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -99,6 +100,24 @@ public class PlayerShooting : MonoBehaviour
         {
             CooldownTimer();
         }
+    }
+
+    public bool IsActive
+    {
+        get => isActive;
+        set
+        {
+            if (isActive == value) return;
+            isActive = value;
+            if (!isActive) ResetCharge();
+        }
+
+    }
+
+    void ResetCharge()
+    {
+        isCharging = false;
+        chargeBar.value = minKnockbackForce;
     }
 
     void RotateGun(Vector3 lookPoint, bool allowRotationOverTime)
