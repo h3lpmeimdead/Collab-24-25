@@ -106,14 +106,27 @@ public class PlayerShooting : MonoBehaviour
         {
             animator.Play("Cannon Jump");
         }
-        if (isCharging && isGrounded && Mathf.Abs(Input.GetAxis("Horizontal")) < 0.1f)
+        // Handle aiming animations
+        if (isCharging && isGrounded)
         {
-            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Cannon Aim"))
-            {
-                animator.Play("Cannon Aim");
-            }
+            float moveInput = Mathf.Abs(Input.GetAxis("Horizontal"));
 
+            if (moveInput > 0.1f)
+            {
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Cannon Gun Run"))
+                {
+                    animator.Play("Cannon Gun Run");
+                }
+            }
+            else
+            {
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Cannon Aim"))
+                {
+                    animator.Play("Cannon Aim");
+                }
+            }
         }
+
 
     }
 
@@ -185,24 +198,45 @@ public class PlayerShooting : MonoBehaviour
             Flip();
         }
 
-     
+
         if (animator != null)
         {
             if (Mathf.Abs(moveInput) > 0.1f)
             {
-                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Cannon Run"))
+                if (isCharging)
                 {
-                    animator.Play("Cannon Run");
+                    if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Cannon Run Gun"))
+                    {
+                        animator.Play("Cannon Run Gun");
+                    }
+                }
+                else
+                {
+                    if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Cannon Run"))
+                    {
+                        animator.Play("Cannon Run");
+                    }
                 }
             }
             else
             {
-                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Cannon Idle"))
+                if (isCharging)
                 {
-                    animator.Play("Cannon Idle");
+                    if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Cannon Aim"))
+                    {
+                        animator.Play("Cannon Aim");
+                    }
+                }
+                else
+                {
+                    if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Cannon Idle"))
+                    {
+                        animator.Play("Cannon Idle");
+                    }
                 }
             }
         }
+
     }
     void Shoot()
     {
