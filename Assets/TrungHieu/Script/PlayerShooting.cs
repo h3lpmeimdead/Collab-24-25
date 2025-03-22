@@ -56,7 +56,7 @@ public class PlayerShooting : MonoBehaviour
     private void FixedUpdate()
     {
         
-        if (IsActive && isGrounded || inShootingZone)
+        if (IsActive && (isGrounded || inShootingZone))
         {
             Movement();
         }
@@ -85,6 +85,8 @@ public class PlayerShooting : MonoBehaviour
                 chargeTime += Time.deltaTime * (maxKnockbackForce - minKnockbackForce);
                 chargeTime = Mathf.Clamp(chargeTime, minKnockbackForce, maxKnockbackForce);
                 chargeBar.value = chargeTime;
+
+                FlipToMouse();
             }
 
             if (Input.GetMouseButtonUp(0) && isCharging)
@@ -100,6 +102,19 @@ public class PlayerShooting : MonoBehaviour
         {
             CooldownTimer();
         }
+        if (!isGrounded && !animator.GetCurrentAnimatorStateInfo(0).IsName("Cannon Jump"))
+        {
+            animator.Play("Cannon Jump");
+        }
+        if (isCharging && isGrounded && Mathf.Abs(Input.GetAxis("Horizontal")) < 0.1f)
+        {
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Cannon Aim"))
+            {
+                animator.Play("Cannon Aim");
+            }
+
+        }
+
     }
 
     public bool IsActive
@@ -189,16 +204,19 @@ public class PlayerShooting : MonoBehaviour
             }
         }
     }
-
-
-
-
-
     void Shoot()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = ((Vector2)shootingPoint.position - rb.position).normalized;
 
+        if (direction.x < 0 && !facingRight)
+        {
+            Flip();
+        }
+        else if (direction.x > 0 && facingRight)
+        {
+            Flip();
+        }
         //Get the bullet from the pool
         GameObject projectile = GetPooledProjectile();
         if (projectile != null)
@@ -292,5 +310,20 @@ public class PlayerShooting : MonoBehaviour
         gunPivot.localPosition = new Vector3(-gunPivot.localPosition.x, gunPivot.localPosition.y, gunPivot.localPosition.z);
         firePoint.localPosition = new Vector3(-firePoint.localPosition.x, firePoint.localPosition.y, firePoint.localPosition.z);
     }
+    void FlipToMouse()
+    {
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float mouseX = mouseWorldPos.x;
+
+        if (mouseX < transform.position.x && facingRight)
+        {
+            Flip();
+        }
+        else if (mouseX > transform.position.x && !facingRight)
+        {
+            Flip();
+        }
+    }
+
 
 }
