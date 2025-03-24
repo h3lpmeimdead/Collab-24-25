@@ -1179,7 +1179,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2957682174608766394, guid: 24485b0e426c6f14b8299189a944a77b, type: 3}
       propertyPath: maxKnockbackForce
-      value: 50
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2957682174608766394, guid: 24485b0e426c6f14b8299189a944a77b, type: 3}
+      propertyPath: minKnockbackForce
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2957682174608766394, guid: 24485b0e426c6f14b8299189a944a77b, type: 3}
       propertyPath: groundLayer.m_Bits
@@ -1638,10 +1642,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4347952993142209729, guid: 3633b7e6b7270ca4c9de0a9ce3cb4cdb, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4959995339092182843, guid: 3633b7e6b7270ca4c9de0a9ce3cb4cdb, type: 3}
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5939881435960549592, guid: 3633b7e6b7270ca4c9de0a9ce3cb4cdb, type: 3}
+      propertyPath: shootingPlayer
+      value: 
+      objectReference: {fileID: 1357093236}
+    - target: {fileID: 5939881435960549592, guid: 3633b7e6b7270ca4c9de0a9ce3cb4cdb, type: 3}
+      propertyPath: grapplingPlayer
+      value: 
+      objectReference: {fileID: 209563291}
     - target: {fileID: 5939881435960549592, guid: 3633b7e6b7270ca4c9de0a9ce3cb4cdb, type: 3}
       propertyPath: player1Controller
       value: 
@@ -1658,6 +1674,37 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1502085150}
   m_SourcePrefab: {fileID: 100100000, guid: 3633b7e6b7270ca4c9de0a9ce3cb4cdb, type: 3}
+--- !u!1 &1465255826 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4372212443402711255, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
+  m_PrefabInstance: {fileID: 1853489265}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1465255831 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6651181047119263674, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
+  m_PrefabInstance: {fileID: 1853489265}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1465255833
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1465255826}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fd82163108f37fe4d95d542e73372ece, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1502085146 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4959995339092182843, guid: 3633b7e6b7270ca4c9de0a9ce3cb4cdb, type: 3}
@@ -2134,8 +2181,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1409113118}
     - target: {fileID: 2573794512271776136, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
+      propertyPath: spriteRenderer
+      value: 
+      objectReference: {fileID: 1465255831}
+    - target: {fileID: 2573794512271776136, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
       propertyPath: groundLayer.m_Bits
-      value: 4608
+      value: 12800
       objectReference: {fileID: 0}
     - target: {fileID: 2573794512271776136, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
       propertyPath: pullableLayers.m_Bits
@@ -2155,11 +2206,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6022767834733842831, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.1755757
+      value: -3.93
       objectReference: {fileID: 0}
     - target: {fileID: 6022767834733842831, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.495003
+      value: -2.89
       objectReference: {fileID: 0}
     - target: {fileID: 6022767834733842831, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2193,6 +2244,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6358321558024285735, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
+      propertyPath: m_Size.x
+      value: 0.7089047
+      objectReference: {fileID: 0}
+    - target: {fileID: 6358321558024285735, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
+      propertyPath: m_Size.y
+      value: 1.399399
+      objectReference: {fileID: 0}
+    - target: {fileID: 6358321558024285735, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.00501895
+      objectReference: {fileID: 0}
+    - target: {fileID: 6358321558024285735, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6651181047119263674, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c235e7c240a95ca4ebc22154585dae3f, type: 3}
     - target: {fileID: 8241703342241742330, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
       propertyPath: wallSlideLayer.m_Bits
       value: 1024
@@ -2200,7 +2271,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4372212443402711255, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1465255833}
   m_SourcePrefab: {fileID: 100100000, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
 --- !u!1 &1943787521
 GameObject:

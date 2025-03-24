@@ -46,9 +46,14 @@ public class GrapplingGun : MonoBehaviour
     [SerializeField] public bool isGrounded;
     public LayerMask groundLayer;
 
-    [Header("Pull Settings:")]
+    [Header("Pull Settings")]
     [SerializeField] private float pullForce = 10f;
     private Rigidbody2D pulledObject;
+
+    [Header("Animations")]
+    private Animator animator;
+    private bool facingRight = true;
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
     private enum LaunchType
     {
@@ -71,6 +76,7 @@ public class GrapplingGun : MonoBehaviour
 
     private void Start()
     {
+        animator = GetComponentInParent<Animator>();
         grappleRope.enabled = false;
         m_springJoint2D.enabled = false;
         isGrappling = false;
@@ -101,13 +107,17 @@ public class GrapplingGun : MonoBehaviour
             grappleRope.enabled = false;
             isPulling = false;
         }
-
+        if (!isGrounded && !animator.GetCurrentAnimatorStateInfo(0).IsName("Jump") && !isGrappling)
+        {
+            animator.Play("Jump");
+        }
         if (Input.GetKeyDown(KeyCode.Mouse0) && inGrapplingZone == false)
         {
             SetGrapplePoint();
         }
         else if (Input.GetKey(KeyCode.Mouse0))
         {
+
             isGrappling = true;
             if (grappleRope.enabled)
             {
@@ -174,6 +184,33 @@ public class GrapplingGun : MonoBehaviour
         float moveInput = Input.GetAxis("Horizontal");
         Vector2 movement = new Vector2(moveInput * movementSpeed, m_rigidbody.velocity.y);
         m_rigidbody.velocity = movement;
+        if (moveInput > 0 && !facingRight)
+        {
+            Flip();
+        }
+        else if (moveInput < 0 && facingRight)
+        {
+            Flip();
+        }
+        if (animator != null)
+        {
+
+            if (Mathf.Abs(moveInput) > 0.1f)
+            {
+                
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Run"))
+                {
+                    animator.Play("Run");
+                }
+            }
+            else
+            { 
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+                {
+                    animator.Play("Idle");
+                }
+            }
+        }
     }
 
     void RotateGun(Vector3 lookPoint, bool allowRotationOverTime)
@@ -195,6 +232,7 @@ public class GrapplingGun : MonoBehaviour
 
     void SetGrapplePoint()
     {
+        FlipToMouse();
         Vector2 distanceVector = m_camera.ScreenToWorldPoint(Input.mousePosition) - firePoint.position;
         RaycastHit2D[] hits = Physics2D.RaycastAll(firePoint.position,
             distanceVector.normalized,
@@ -236,10 +274,18 @@ public class GrapplingGun : MonoBehaviour
                 }
             }
         }
+        if (animator != null)
+        {
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("IdleGrapple"))
+            {
+                animator.Play("IdleGrapple");
+            }
+        }
     }
 
     public void Grapple()
     {
+        
         if (isPulling) return;
 
         m_springJoint2D.autoConfigureDistance = false;
@@ -305,4 +351,32 @@ public class GrapplingGun : MonoBehaviour
 
     public void EnableGrappling() => inGrapplingZone = false;
     public void DisableGrappling() => inGrapplingZone = true;
+
+    void Flip()
+    {
+        facingRight = !facingRight;
+        spriteRenderer.flipX = !facingRight;
+
+        gunPivot.localPosition = new Vector3(-gunPivot.localPosition.x, gunPivot.localPosition.y, gunPivot.localPosition.z);
+        firePoint.localPosition = new Vector3(-firePoint.localPosition.x, firePoint.localPosition.y, firePoint.localPosition.z);
+    }
+
+    #region Flip
+    void FlipToMouse()
+    {
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float mouseX = mouseWorldPos.x;
+
+        if (mouseX < transform.position.x && facingRight)
+        {
+            Flip();
+        }
+        else if (mouseX > transform.position.x && !facingRight)
+        {
+            Flip();
+        }
+    }
+
+    #endregion
+
 }

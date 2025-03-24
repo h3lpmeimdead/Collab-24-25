@@ -23,6 +23,13 @@ public class Rope : MonoBehaviour
     [HideInInspector] public bool isGrappling = true;
     bool straightLine = true;
 
+    private Animator animator;
+
+    private void Start()
+    {
+        animator = GetComponentInParent<Animator>();
+    }
+
     private void OnEnable()
     {
         moveTime = 0;
@@ -55,6 +62,13 @@ public class Rope : MonoBehaviour
 
     void DrawRope()
     {
+        if (animator != null)
+        {
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("IdleGrapple"))
+            {
+                animator.Play("IdleGrapple");
+            }
+        }
         if (!straightLine)
         {
             if (m_lineRenderer.GetPosition(precision - 1).x == grapplingGun.grapplePoint.x)
