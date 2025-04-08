@@ -129,7 +129,6 @@ public class PlayerShooting : MonoBehaviour
 
 
     }
-
     public bool IsActive
     {
         get => isActive;
@@ -137,10 +136,20 @@ public class PlayerShooting : MonoBehaviour
         {
             if (isActive == value) return;
             isActive = value;
-            if (!isActive) ResetCharge();
-        }
 
+            // Enable/disable the charge bar based on active state
+            if (chargeBar != null)
+            {
+                chargeBar.gameObject.SetActive(isActive);
+            }
+
+            if (!isActive)
+            {
+                ResetCharge();
+            }
+        }
     }
+
 
     void ResetCharge()
     {
