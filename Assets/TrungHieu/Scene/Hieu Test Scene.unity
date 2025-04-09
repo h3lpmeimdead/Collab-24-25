@@ -3557,6 +3557,10 @@ PrefabInstance:
       propertyPath: chargeBar
       value: 
       objectReference: {fileID: 1553882934}
+    - target: {fileID: 8626880459559919811, guid: 31ae2d82d94c8d4469ba95760ea62a95, type: 3}
+      propertyPath: shootingCooldown
+      value: 0.95
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

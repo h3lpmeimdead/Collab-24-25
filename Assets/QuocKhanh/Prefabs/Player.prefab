@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3216072822213401720}
   - component: {fileID: 8241703342241742330}
   - component: {fileID: 6358321558024285735}
+  - component: {fileID: 2699772964547586539}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -79,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c235e7c240a95ca4ebc22154585dae3f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,7 +103,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 50
   m_LinearDrag: 1.5
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -189,9 +190,30 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
+  m_Offset: {x: -0.00501895, y: -0.6}
+  m_Size: {x: 0.7089047, y: 1.399399}
   m_Direction: 0
+--- !u!95 &2699772964547586539
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4372212443402711255}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fd82163108f37fe4d95d542e73372ece, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4579993043921591252
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,14 +487,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5754621242214329600}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.21217358, w: 0.97723204}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: -0.21217771, w: 0.97723114}
+  m_LocalPosition: {x: 0.009, y: -0.698, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5909509620270580589}
   m_Father: {fileID: 6022767834733842831}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -24.5}
 --- !u!1 &6714262659887374040
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,7 +522,7 @@ Transform:
   m_GameObject: {fileID: 6714262659887374040}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.2588191, w: 0.9659258}
-  m_LocalPosition: {x: 1.3, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -519,13 +541,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1764da76ef95c924b8c6378eba4d105b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isActive: 0
   grappleRope: {fileID: 6702901021425252862}
   outOfRangeText: {fileID: 0}
   grappleToAll: 0
-  playerLayer: 11
-  grappleableLayer: 9
-  slideLayer: 10
+  grappleableLayers:
+    serializedVersion: 2
+    m_Bits: 1536
+  pullableLayers:
+    serializedVersion: 2
+    m_Bits: 8192
   inGrapplingZone: 0
+  isPulling: 0
   m_camera: {fileID: 0}
   gunHolder: {fileID: 6022767834733842831}
   gunPivot: {fileID: 5074122054659639732}
@@ -541,7 +568,9 @@ MonoBehaviour:
   isGrounded: 1
   groundLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 12800
+  pullForce: 10
+  spriteRenderer: {fileID: 6651181047119263674}
   launchToPoint: 1
   launchType: 1
   launchSpeed: 1.5
