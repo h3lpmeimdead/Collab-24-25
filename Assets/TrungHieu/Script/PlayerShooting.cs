@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerShooting : MonoBehaviour
 {
@@ -62,6 +63,11 @@ public class PlayerShooting : MonoBehaviour
         }
     }
 
+    public void Die()
+    {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentSceneName);
+    }
 
     void Update()
     {
@@ -305,8 +311,8 @@ public class PlayerShooting : MonoBehaviour
         for (int i = 0; i < poolSize; i++)
         {
             GameObject projectile = Instantiate(projectilePrefab);
-            projectile.SetActive(false); // Disable bullet 
-            projectilePool.Enqueue(projectile); // Add bullet to pool
+            projectile.SetActive(false);
+            projectilePool.Enqueue(projectile); 
         }
     }
 
@@ -314,8 +320,8 @@ public class PlayerShooting : MonoBehaviour
     {
         if (projectilePool.Count > 0)
         {
-            GameObject projectile = projectilePool.Dequeue(); // Remove bullet from pool
-            return projectile; // Return inactive bullets
+            GameObject projectile = projectilePool.Dequeue(); 
+            return projectile; 
         }
 
         return null; // Pool is empty

@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GrapplingGun : MonoBehaviour
 {
@@ -170,6 +171,12 @@ public class GrapplingGun : MonoBehaviour
 
             if (!isActive) ResetGrapple();
         }
+    }
+
+    public void Die()
+    {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentSceneName);
     }
 
     void CheckGrounded()
