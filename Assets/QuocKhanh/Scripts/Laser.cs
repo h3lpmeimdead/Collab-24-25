@@ -5,9 +5,14 @@ using UnityEngine;
 public class Laser : MonoBehaviour
 {
     [SerializeField] private LayerMask layersToHit;
-
+    private bool isActive = true;
     private void Update()
     {
+        if (!isActive)
+        {
+            transform.localScale = new Vector3(0, transform.localScale.y, 1);
+            return;
+        }
         float angle = transform.eulerAngles.z * Mathf.Deg2Rad;
         Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
@@ -24,5 +29,9 @@ public class Laser : MonoBehaviour
         {
             Destroy(hit.collider.gameObject);
         }
+    }
+    public void ToggleLaser()
+    {
+        isActive = !isActive;
     }
 }
