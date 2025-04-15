@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float pointReachedThreshold = 0.1f;
     private int currentTargetIndex = 0;
     private int direction = 1;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -86,7 +87,7 @@ public class Enemy : MonoBehaviour
         if (other.CompareTag("HeavyObject"))
         {
             Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
-            if (rb != null && rb.velocity.y < 0)
+            if (rb != null && rb.velocity.y > 0)
             {
                 TriggerDeath();
             }
