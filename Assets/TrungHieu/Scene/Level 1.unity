@@ -318,7 +318,7 @@ Camera:
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 4
   m_BackGroundColor: {r: 0.4339623, g: 0.4073514, b: 0.4073514, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -595,7 +595,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -5
+  m_SortingOrder: -10
   m_Sprite: {fileID: 21300000, guid: d4c1e6e05fb91d449b34e6b623a8ea70, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -3674,6 +3674,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4579993043921591252, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 6022767834733842831, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.11
@@ -3718,9 +3722,29 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 7743914645022870450, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 8241703342241742330, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
       propertyPath: wallSlideLayer.m_Bits
       value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 8608664276676903372, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8608664276676903372, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8608664276676903372, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8608664276676903372, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1884267631
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -28,6 +28,8 @@ public class Rope : MonoBehaviour
     private void Start()
     {
         animator = GetComponentInParent<Animator>();
+        LineRenderer line = GetComponent<LineRenderer>();
+        line.material.renderQueue = 3000;
     }
 
     private void OnEnable()

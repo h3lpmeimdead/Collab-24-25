@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: c235e7c240a95ca4ebc22154585dae3f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -241,7 +241,7 @@ Transform:
   m_GameObject: {fileID: 4579993043921591252}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -286,8 +286,8 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1884267631
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Positions:
   - {x: 1.2971535, y: 3.4131088, z: 0}
@@ -547,7 +547,7 @@ MonoBehaviour:
   grappleToAll: 0
   grappleableLayers:
     serializedVersion: 2
-    m_Bits: 1536
+    m_Bits: 512
   pullableLayers:
     serializedVersion: 2
     m_Bits: 8192
@@ -568,7 +568,7 @@ MonoBehaviour:
   isGrounded: 1
   groundLayer:
     serializedVersion: 2
-    m_Bits: 12800
+    m_Bits: 4608
   pullForce: 10
   spriteRenderer: {fileID: 6651181047119263674}
   launchToPoint: 1
@@ -619,7 +619,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
