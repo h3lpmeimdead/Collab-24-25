@@ -266,7 +266,6 @@ public class PlayerShooting : MonoBehaviour
         {
             Flip();
         }
-        //Get the bullet from the pool
         GameObject projectile = GetPooledProjectile();
         if (projectile != null)
         {
@@ -274,13 +273,14 @@ public class PlayerShooting : MonoBehaviour
             projectile.transform.rotation = Quaternion.identity;
             projectile.SetActive(true);
 
-            //Set projectile velocity based on charge time
             Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
             float adjustedSpeed = Mathf.Lerp(projectileSpeed, projectileSpeed * 2, (chargeTime - minKnockbackForce) / (maxKnockbackForce - minKnockbackForce));
             projectileRb.velocity = direction * adjustedSpeed;
 
-            // Apply knockback to the player
             rb.AddForce(-direction * chargeTime, ForceMode2D.Impulse);
+
+            AudioSource gunShot = GetComponent<AudioSource>();
+            gunShot.Play();
         }
     }
 

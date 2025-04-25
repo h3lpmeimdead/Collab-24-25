@@ -239,16 +239,19 @@ public class GrapplingGun : MonoBehaviour
 
     void SetGrapplePoint()
     {
+
         FlipToMouse();
         Vector2 distanceVector = m_camera.ScreenToWorldPoint(Input.mousePosition) - firePoint.position;
         RaycastHit2D[] hits = Physics2D.RaycastAll(firePoint.position,
-            distanceVector.normalized,
-            hasMaxDistance ? maxDistnace : Mathf.Infinity);
-
+        distanceVector.normalized,
+        hasMaxDistance ? maxDistnace : Mathf.Infinity);
+        AudioSource grapplingSound = GetComponentInParent<AudioSource>();
         foreach (RaycastHit2D hit in hits)
         {
             if (grappleToAll || (grappleableLayers & (1 << hit.transform.gameObject.layer)) != 0)
             {
+                
+                grapplingSound.Play();
                 isPulling = false;
                 grapplePoint = hit.point;
                 grappleDistanceVector = grapplePoint - (Vector2)gunPivot.position;
@@ -258,6 +261,8 @@ public class GrapplingGun : MonoBehaviour
 
             if ((pullableLayers & (1 << hit.transform.gameObject.layer)) != 0)
             {
+                
+                grapplingSound.Play();
                 isPulling = true;
                 pulledObject = hit.rigidbody;
                 grapplePoint = hit.point;
@@ -292,7 +297,7 @@ public class GrapplingGun : MonoBehaviour
 
     public void Grapple()
     {
-        
+
         if (isPulling) return;
 
         m_springJoint2D.autoConfigureDistance = false;
