@@ -23,23 +23,7 @@ public class BreakablePlatform : MonoBehaviour
         
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            
-            if (breakEffect != null)
-            {
-                Instantiate(breakEffect, transform.position, Quaternion.identity);
-            }
-
-           
-            if (audioSource != null)
-            {
-                audioSource.Play();
-            }
-
-            
-            Destroy(gameObject, breakSound != null ? breakSound.length : 0f);
-
-            
-            Destroy(collision.gameObject);
+            Destroy(gameObject);
         }
     }
 }

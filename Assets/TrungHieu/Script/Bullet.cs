@@ -37,16 +37,6 @@ public class Bullet : MonoBehaviour
             ReturnToPoolOrDestroy();
             return;
         }
-
-        if (other.CompareTag("Player1"))
-        {
-            Vector2 dir = (other.transform.position - transform.position).normalized;
-            if (other.TryGetComponent<Rigidbody2D>(out var rb))
-            {
-                rb.AddForce(dir * knockbackForce, ForceMode2D.Impulse);
-            }
-            ReturnToPoolOrDestroy();
-        }
     }
 
     private void ReturnToPoolOrDestroy()

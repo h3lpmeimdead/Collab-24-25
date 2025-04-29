@@ -260,7 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 17510502432746130, guid: 05b44573df69ad544a65d3a26940edf9, type: 3}
   shootingPoint: {fileID: 1197653672781490352}
-  projectileSpeed: 100
+  projectileSpeed: 25
   maxKnockbackForce: 20
   minKnockbackForce: 10
   shootingPointDistance: 4
