@@ -29,6 +29,7 @@ public class Rope : MonoBehaviour
     {
         animator = GetComponentInParent<Animator>();
         LineRenderer line = GetComponent<LineRenderer>();
+        line.material = new Material(Shader.Find("Unlit/Transparent"));
         line.material.renderQueue = 3000;
     }
 
