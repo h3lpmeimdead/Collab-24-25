@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class PlayerShooting : MonoBehaviour
 {
@@ -42,16 +43,37 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private float movementSpeed = 5f;
     public LayerMask groundLayer;
 
+    private Canvas uiCanvas;
+    private RectTransform canvasRect;
+    private RectTransform chargeBarRect;
     void Start()
     {
-        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
+        // Configure charge bar
         chargeBar.maxValue = maxKnockbackForce;
         chargeBar.minValue = minKnockbackForce;
         chargeBar.value = minKnockbackForce;
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        chargeBar.gameObject.SetActive(isActive);
 
-        InitializeProjectilePool();
+        // Cache canvas and rect transforms for UI positioning
+        uiCanvas = chargeBar.GetComponentInParent<Canvas>();
+        canvasRect = uiCanvas.GetComponent<RectTransform>();
+        chargeBarRect = chargeBar.GetComponent<RectTransform>();
+        // Center pivot for easier positioning
+        chargeBarRect.anchorMin = chargeBarRect.anchorMax = new Vector2(0.5f, 0.5f);
+        chargeBarRect.pivot = new Vector2(0.5f, 0f);
+
+        // Initialize projectile pool
+        projectilePool = new Queue<GameObject>();
+        for (int i = 0; i < poolSize; i++)
+        {
+            GameObject proj = Instantiate(projectilePrefab);
+            proj.SetActive(false);
+            projectilePool.Enqueue(proj);
+        }
     }
 
     private void FixedUpdate()
@@ -299,10 +321,19 @@ public class PlayerShooting : MonoBehaviour
         }
     }
 
-    public void UpdateChargeBarPosition()
+    private void UpdateChargeBarPosition()
     {
-        Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position + barOffset);
-        chargeBar.transform.position = screenPosition;
+        Vector3 worldPos = transform.position + barOffset;
+        Vector2 screenPoint = Camera.main.WorldToScreenPoint(worldPos);
+
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvasRect,
+            screenPoint,
+            uiCanvas.worldCamera,
+            out Vector2 localPoint
+        );
+
+        chargeBarRect.localPosition = localPoint;
     }
 
     void InitializeProjectilePool()
