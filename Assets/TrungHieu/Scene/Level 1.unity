@@ -3960,6 +3960,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EndGoal
       objectReference: {fileID: 0}
+    - target: {fileID: 3355948022008751667, guid: 7f8b6f7f0789cac4f812b67def4b2fd1, type: 3}
+      propertyPath: levelIndex
+      value: Level 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8228761152562189997, guid: 7f8b6f7f0789cac4f812b67def4b2fd1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.49
@@ -4075,3 +4079,5 @@ SceneRoots:
   - {fileID: 106377086}
   - {fileID: 1203853721}
   - {fileID: 5000357816692962950}
+  - {fileID: 8574237693506530061}
+  - {fileID: 2626601301749748458}

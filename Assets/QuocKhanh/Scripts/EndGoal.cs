@@ -13,6 +13,7 @@ public class EndGoal : MonoBehaviour
     [SerializeField] private Color bothPlayersColor;
     [SerializeField] private Color onePlayerColor;
     [SerializeField] private Color defaultColor;
+    [SerializeField] private string levelIndex;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -66,7 +67,7 @@ public class EndGoal : MonoBehaviour
     {
         if (player1Ready && player2Ready)
         {
-            Debug.Log("Both players reached the goal!");
+            SceneManager.LoadScene(levelIndex);
         }
     }
 }
