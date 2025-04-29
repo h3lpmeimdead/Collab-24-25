@@ -93,6 +93,7 @@ public class PlayerShooting : MonoBehaviour
 
     void Update()
     {
+        ResetAnimation();
         if (!IsActive) return;
         CheckGrounded();
         UpdateChargeBarPosition();
@@ -154,8 +155,6 @@ public class PlayerShooting : MonoBehaviour
                 }
             }
         }
-
-
     }
     public bool IsActive
     {
@@ -386,7 +385,7 @@ public class PlayerShooting : MonoBehaviour
         facingRight = !facingRight; 
         spriteRenderer.flipX = !facingRight;
 
-        // Flip gunPivot and firePoint positions
+        //Flip gunPivot and firePoint positions
         gunPivot.localPosition = new Vector3(-gunPivot.localPosition.x, gunPivot.localPosition.y, gunPivot.localPosition.z);
         firePoint.localPosition = new Vector3(-firePoint.localPosition.x, firePoint.localPosition.y, firePoint.localPosition.z);
     }
@@ -404,6 +403,16 @@ public class PlayerShooting : MonoBehaviour
             Flip();
         }
     }
-
+    public void ResetAnimation()
+    {
+        if (!isActive)
+        {
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Cannon Idle"))
+            {
+                animator.Play("Cannon Idle");
+            }
+        }
+       
+    }
 
 }

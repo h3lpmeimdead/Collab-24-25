@@ -101,6 +101,7 @@ public class GrapplingGun : MonoBehaviour
 
     private void Update()
     {
+        ResetAnimation();
         if (!IsActive) return;
         CheckGrounded();
         if (isPulling && pulledObject == null)
@@ -372,7 +373,16 @@ public class GrapplingGun : MonoBehaviour
         gunPivot.localPosition = new Vector3(-gunPivot.localPosition.x, gunPivot.localPosition.y, gunPivot.localPosition.z);
         firePoint.localPosition = new Vector3(-firePoint.localPosition.x, firePoint.localPosition.y, firePoint.localPosition.z);
     }
-
+    public void ResetAnimation()
+    {
+        if (!isActive)
+        {
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+            {
+                animator.Play("Idle");
+            }
+        }
+    }
     #region Flip
     void FlipToMouse()
     {

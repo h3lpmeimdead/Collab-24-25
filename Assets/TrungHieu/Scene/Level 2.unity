@@ -3104,6 +3104,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 519420031}
     - target: {fileID: 2573794512271776136, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
+      propertyPath: pullForce
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2573794512271776136, guid: 29fd282bbde2247489a392f0bfdc07ba, type: 3}
       propertyPath: outOfRangeText
       value: 
       objectReference: {fileID: 1409113118}
@@ -3367,3 +3371,5 @@ SceneRoots:
   - {fileID: 106377086}
   - {fileID: 1705706266}
   - {fileID: 392653696}
+  - {fileID: 8574237693506530061}
+  - {fileID: 2626601301749748458}

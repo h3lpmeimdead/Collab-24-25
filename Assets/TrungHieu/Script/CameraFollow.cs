@@ -8,7 +8,7 @@ public class CameraFollow : MonoBehaviour
 
     [Header("Follow Settings")]
     public float followSpeed = 5f;
-    public Vector3 offset = new Vector3(0, 0, -10f); // For 2D camera
+    public Vector3 offset = new Vector3(0, 0, -10f);
 
     void LateUpdate()
     {
@@ -28,7 +28,6 @@ public class CameraFollow : MonoBehaviour
 
         if (grapplingPlayer != null && grapplingPlayer.IsActive)
         {
-            // Follow the parent transform instead of the object the script is on
             return grapplingPlayer.transform.parent != null
                 ? grapplingPlayer.transform.parent
                 : grapplingPlayer.transform;
