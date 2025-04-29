@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Laser : MonoBehaviour
 {
@@ -25,9 +26,10 @@ public class Laser : MonoBehaviour
 
         transform.localScale = new Vector3(hit.distance, transform.localScale.y, 1);
 
-        if(hit.collider.tag == "Player1" || hit.collider.tag == "Player2") 
+        if(hit.collider.tag == "Player") 
         {
-            Destroy(hit.collider.gameObject);
+            Scene currentScene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(currentScene.name);
         }
     }
     public void ToggleLaser()
