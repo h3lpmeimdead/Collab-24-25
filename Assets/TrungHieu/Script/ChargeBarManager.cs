@@ -10,11 +10,4 @@ public class ChargeBarManager : MonoBehaviour
     {
         playerShooting = FindObjectOfType<PlayerShooting>();
     }
-    void Update()
-    {
-        if (playerShooting != null)
-        {
-            playerShooting.UpdateChargeBarPosition(); // Call the method to update the UI position
-        }
-    }
 }
