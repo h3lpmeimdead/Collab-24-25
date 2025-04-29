@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 503757245159948780}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2489641916116690794}
   - component: {fileID: 7221810172597771725}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Rocket Launcher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6938955599530063112}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7078700406883429369}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,7 +196,7 @@ GameObject:
   - component: {fileID: 3901690850603461404}
   - component: {fileID: 6740528853517457061}
   - component: {fileID: 3198248332473290520}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: CannonPlayer 1
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -280,7 +280,7 @@ MonoBehaviour:
   movementSpeed: 5
   groundLayer:
     serializedVersion: 2
-    m_Bits: 4608
+    m_Bits: 2560
 --- !u!114 &1382966611890308568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,7 +352,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: c235e7c240a95ca4ebc22154585dae3f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
