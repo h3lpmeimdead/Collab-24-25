@@ -2,37 +2,49 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private PlayerShooting shootingScript;
+    [Header("Lifetime & Knockback")]
     public float lifeTime = 3f;
-    public float knockbackForce = 10f; // Adjustable knockback force
+    public float knockbackForce = 10f;
 
-    private void Start()
+    [Header("Collision Layers")]
+    [Tooltip("Layers that the bullet should treat as walls and return to pool on collision.")]
+    [SerializeField] private LayerMask wallLayers;
+
+    private PlayerShooting shootingScript;
+
+    private void Awake()
     {
         shootingScript = FindObjectOfType<PlayerShooting>();
+    }
 
-        //Schedule destruction of the bullet after its lifetime
+    private void OnEnable()
+    {
         Invoke(nameof(ReturnToPoolOrDestroy), lifeTime);
+    }
+
+    private void OnDisable()
+    {
+        CancelInvoke(nameof(ReturnToPoolOrDestroy));
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Wall")
+        GameObject other = collision.gameObject;
+        int layer = other.layer;
+
+        if ((wallLayers.value & (1 << layer)) != 0)
         {
             ReturnToPoolOrDestroy();
+            return;
         }
-        else if (collision.gameObject.tag == "Player1")
+
+        if (other.CompareTag("Player1"))
         {
-           
-            Vector2 knockbackDirection = (collision.transform.position - transform.position).normalized;
-
-            
-            Rigidbody2D playerRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
-            if (playerRigidbody != null)
+            Vector2 dir = (other.transform.position - transform.position).normalized;
+            if (other.TryGetComponent<Rigidbody2D>(out var rb))
             {
-                playerRigidbody.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+                rb.AddForce(dir * knockbackForce, ForceMode2D.Impulse);
             }
-
-            // Destroy or return the bullet to the pool
             ReturnToPoolOrDestroy();
         }
     }
@@ -42,6 +54,10 @@ public class Bullet : MonoBehaviour
         if (shootingScript != null)
         {
             shootingScript.ReturnProjectileToPool(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 }

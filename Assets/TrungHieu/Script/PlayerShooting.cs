@@ -48,6 +48,7 @@ public class PlayerShooting : MonoBehaviour
     private RectTransform chargeBarRect;
     void Start()
     {
+        InitializeProjectilePool();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
