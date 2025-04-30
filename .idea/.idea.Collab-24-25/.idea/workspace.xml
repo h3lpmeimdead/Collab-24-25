@@ -13,6 +13,11 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Thanhdayma/Script/MainMenuManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Thanhdayma/Script/Quit.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Thanhdayma/Script/TutorialText.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 6
@@ -91,6 +96,11 @@
       <workItem from="1745947661601" duration="178000" />
       <workItem from="1745947872695" duration="466000" />
       <workItem from="1745948397806" duration="9037000" />
+      <workItem from="1746000020729" duration="3286000" />
+      <workItem from="1746003627803" duration="2119000" />
+      <workItem from="1746005903830" duration="3418000" />
+      <workItem from="1746009572033" duration="90000" />
+      <workItem from="1746009680019" duration="748000" />
     </task>
     <servers />
   </component>
