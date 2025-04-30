@@ -374,7 +374,7 @@ public class PlayerShooting : MonoBehaviour
     }
     private IEnumerator EnableMovement()
     {
-       yield return new WaitForSeconds(1f);
+       yield return new WaitForSeconds(0.5f);
        isShooting = false;
     }
     void Flip()
