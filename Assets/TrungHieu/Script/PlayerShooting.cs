@@ -277,34 +277,30 @@ public class PlayerShooting : MonoBehaviour
     }
     void Shoot()
     {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 direction = ((Vector2)shootingPoint.position - rb.position).normalized;
+        Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 dir = (mouseWorld - (Vector2)shootingPoint.position).normalized;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
-        if (direction.x < 0 && !facingRight)
-        {
-            Flip();
-        }
-        else if (direction.x > 0 && facingRight)
-        {
-            Flip();
-        }
         GameObject projectile = GetPooledProjectile();
-        if (projectile != null)
-        {
-            projectile.transform.position = shootingPoint.position;
-            projectile.transform.rotation = Quaternion.identity;
-            projectile.SetActive(true);
+        if (projectile == null) return;
 
-            Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
-            float adjustedSpeed = Mathf.Lerp(projectileSpeed, projectileSpeed * 2, (chargeTime - minKnockbackForce) / (maxKnockbackForce - minKnockbackForce));
-            projectileRb.velocity = direction * adjustedSpeed;
+        projectile.transform.position = shootingPoint.position;
+        projectile.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-            rb.AddForce(-direction * chargeTime, ForceMode2D.Impulse);
+        projectile.SetActive(true);
+        Rigidbody2D prb = projectile.GetComponent<Rigidbody2D>();
+        float speed = Mathf.Lerp(
+            projectileSpeed,
+            projectileSpeed * 2f,
+            (chargeTime - minKnockbackForce) / (maxKnockbackForce - minKnockbackForce)
+        );
+        prb.velocity = dir * speed;
 
-            AudioSource gunShot = GetComponent<AudioSource>();
-            gunShot.Play();
-        }
+        rb.AddForce(-dir * chargeTime, ForceMode2D.Impulse);
+
+        GetComponent<AudioSource>()?.Play();
     }
+
 
     void StartCooldown()
     {
@@ -388,7 +384,6 @@ public class PlayerShooting : MonoBehaviour
 
         //Flip gunPivot and firePoint positions
         gunPivot.localPosition = new Vector3(-gunPivot.localPosition.x, gunPivot.localPosition.y, gunPivot.localPosition.z);
-        firePoint.localPosition = new Vector3(-firePoint.localPosition.x, firePoint.localPosition.y, firePoint.localPosition.z);
     }
     void FlipToMouse()
     {
