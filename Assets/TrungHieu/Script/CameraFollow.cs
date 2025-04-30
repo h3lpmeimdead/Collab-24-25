@@ -1,10 +1,12 @@
 using UnityEngine;
+using Cinemachine;
 
 public class CameraFollow : MonoBehaviour
 {
     [Header("Player Components")]
     public PlayerShooting shootingPlayer;
     public GrapplingGun grapplingPlayer;
+    [SerializeField] private CinemachineVirtualCamera _virtualCamera;
 
     [Header("Follow Settings")]
     public float followSpeed = 5f;
@@ -18,6 +20,7 @@ public class CameraFollow : MonoBehaviour
         {
             Vector3 targetPosition = target.position + offset;
             transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
+            _virtualCamera.Follow = target;
         }
     }
 
