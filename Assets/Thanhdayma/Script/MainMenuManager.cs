@@ -2,15 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _pausePanel, _sfxSlider, _musicSlider;
+    [SerializeField] private GameObject _pausePanel, _sfxSlider, _musicSlider, _tutorialPanel, _quitPanel, _playPanel;
     private bool _isPaused = false;
+    [SerializeField] private int _index;
 
     private void Start()
     {
         _pausePanel.SetActive(false);
+        _tutorialPanel.SetActive(false);
+        _quitPanel.SetActive(false);
+        _playPanel.SetActive(false);
     }
 
     public void Quit()
@@ -51,6 +56,9 @@ public class MainMenuManager : MonoBehaviour
         _isPaused = true;
         Time.timeScale = 0f;
         _pausePanel.SetActive(true);
+        _tutorialPanel.SetActive(false);
+        _playPanel.SetActive(false);
+        _quitPanel.SetActive(false);
     }
     
     public void SFXSlider()
@@ -63,5 +71,24 @@ public class MainMenuManager : MonoBehaviour
     {
         _musicSlider.gameObject.SetActive(!_musicSlider.gameObject.activeSelf);
         _sfxSlider.SetActive(false);
+    }
+
+    public void Tutorial()
+    {
+        _tutorialPanel.SetActive(true);
+        _pausePanel.SetActive(false);
+        _musicSlider.SetActive(false);
+        _sfxSlider.SetActive(false);
+    }
+
+    public void CloseQuit()
+    {
+        Time.timeScale = 1;
+        _quitPanel.SetActive(false);
+    }
+
+    public void LoadScene()
+    {
+        SceneManager.LoadScene(_index);
     }
 }

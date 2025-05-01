@@ -92,6 +92,14 @@ public class Enemy : MonoBehaviour
                 TriggerDeath();
             }
         }
+        if (other.CompareTag("Bullet"))
+        {
+            Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
+            if (rb != null && rb.velocity.y > 0)
+            {
+                TriggerDeath();
+            }
+        }
     }
 
     public void TriggerDeath()
@@ -106,8 +114,6 @@ public class Enemy : MonoBehaviour
     private IEnumerator DeathAnimation()
     {
         GetComponent<CircleCollider2D>().enabled = false;
-        
-
        
         rb.gravityScale = 3f;
         rb.velocity = new Vector2(0, 5f);

@@ -13,7 +13,7 @@ public class EndGoal : MonoBehaviour
     [SerializeField] private Color bothPlayersColor;
     [SerializeField] private Color onePlayerColor;
     [SerializeField] private Color defaultColor;
-    [SerializeField] private string levelIndex;
+    [SerializeField] private int levelIndex;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

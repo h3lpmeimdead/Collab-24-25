@@ -35,6 +35,5 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         pausePanel.SetActive(true);
     }
-
-
+    
 }

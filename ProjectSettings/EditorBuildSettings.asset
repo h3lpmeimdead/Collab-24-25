@@ -6,6 +6,30 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/TrungHieu/Scene/Level 1.unity
-    guid: 9d1791f707f05e2498b3806f63d5b55e
+    path: Assets/Thanhdayma/Scene/Main Menu.unity
+    guid: 1d7cb5cb1ad9c924dbba43024ea9bd80
+  - enabled: 1
+    path: Assets/NgocHieu/Timeline/Level 1 timeline.unity
+    guid: 44d0187d19d64d648abdc06c1d483844
+  - enabled: 1
+    path: Assets/Thanhdayma/Scene/Level 1.unity
+    guid: fc569291b882957499593d7895906e30
+  - enabled: 1
+    path: Assets/NgocHieu/Timeline/Level 2 timeline 1.unity
+    guid: e3fdc61387b311541a7c0005fd69b12e
+  - enabled: 1
+    path: Assets/Thanhdayma/Scene/Level 2 decor.unity
+    guid: 2b14079cb787f0045a1006bd7f243caa
+  - enabled: 1
+    path: Assets/NgocHieu/Timeline/Level 3 timeline.unity
+    guid: 6282985a6cae46a43b919a8778ca92e3
+  - enabled: 1
+    path: Assets/Thanhdayma/Scene/Level 3.unity
+    guid: 52f18c8f188b6f34cbcd9bc7805ff5df
+  - enabled: 1
+    path: Assets/NgocHieu/Timeline/Level 4 timeline.unity
+    guid: d3904555de90cdd4e8555a3373cd294e
+  - enabled: 1
+    path: Assets/Thanhdayma/Scene/Level 4.unity
+    guid: 1faa41a8519da144cb5de1977a8e8c4e
   m_configObjects: {}
